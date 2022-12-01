@@ -264,8 +264,13 @@ public class ContactsServicePlugin implements MethodCallHandler, FlutterPlugin, 
 
     void finishWithResult(Object result) {
       if(this.result != null) {
-        this.result.success(result);
-        this.result = null;
+        try {
+          this.result.success(result);
+          this.result = null;
+        }
+        catch (IllegalStateException e) {
+          return;
+        }
       }
     }
 
